@@ -1,7 +1,7 @@
 import Image from 'next/image';
 
 interface EmptyProps {
-  lable: string;
+  label: string;
 }
 
 const Empty = ({label}:EmptyProps) => {

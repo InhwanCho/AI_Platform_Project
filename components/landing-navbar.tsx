@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 
 const font = Montserrat({
-  weights : '600',
+  weight : '600',
   subsets:['latin'],
 })
 
