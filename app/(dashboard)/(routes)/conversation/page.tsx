@@ -10,23 +10,30 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import { ChatCompletionRequestMessage } from 'openai'
-import axios from 'axios';
+import { useRef, useState } from 'react';
 import Empty from '@/components/empty';
-import Loader from '@/components/loader';
-import { cn } from '@/lib/utils';
-import UserAvatar from '@/components/user-avatar';
-import BotAvatar from '@/components/bot-avatar';
 import { useProModal } from '@/hooks/use-pro-modal';
 import { toast } from 'react-hot-toast';
+import ChatArea from '@/components/chat-area';
 
+interface Message {
+    role: "user" | "assistant" ;
+    content?: string;
+    status?: "thinking";
+}
 
+const initialMessages: Message[] = [
+    {
+        role: "assistant",
+        content: "안녕하세요. 궁금한 내용이 있으신가요?",
+    },
+]
 
 const ConversationPage = () => {
     const proModal = useProModal();
     const router = useRouter();
-    const [messages, setMessages] = useState<ChatCompletionRequestMessage[]>([]);
+    // const [messages, setMessages] = useState<ChatCompletionRequestMessage[]>([]);
+    const [messages, setMessages] = useState(initialMessages);
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -34,17 +41,51 @@ const ConversationPage = () => {
             prompt: ""
         }
     });
+    //
+    const chatAreaRef = useRef<HTMLDivElement>(null);
+    const scrollToBottom = () => {
+        if (chatAreaRef.current) {
+            chatAreaRef.current.scrollTop = chatAreaRef.current.scrollHeight;
+        }
+    };
+    //
 
     const isLoading = form.formState.isSubmitting;
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
-            const userMessage: ChatCompletionRequestMessage = { role: "user", content: values.prompt };
-            const newMessages = [...messages, userMessage];
+            let updatedMessages = [
+                ...messages,
+                {
+                    role: "user",
+                    content: values.prompt,
+                } as Message,
+                {
+                    role: "assistant",
+                    status: "thinking",
+                } as Message,
+            ];
+            
+            const response = await fetch("/api/conversation", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    messages: updatedMessages.slice(0, -1),
+                }),
+            });
+            const result = await response.json();
+            setMessages([
+                ...updatedMessages.slice(0, -1),
+                {
+                    role: "assistant",
+                    content: result.content,
+                },
+            ]);
 
-            const response = await axios.post('/api/conversation', { messages: newMessages });
-            setMessages((current) => [...current, userMessage, response.data]);
 
+            // scrollToBottom();
             form.reset();
         } catch (error: any) {
             if (error?.response?.status === 403) {
@@ -69,16 +110,16 @@ const ConversationPage = () => {
                     <Form {...form}>
                         <form
                             onSubmit={form.handleSubmit(onSubmit)}
-                            className="rounded-lg border w-full p-4 px-3 md:px-6 focus-within:shadow-smgridgrid-cols-12gap-2">
+                            className="rounded-lg border w-full p-5 px-3 md:px-6 focus-within:shadow-smgridgrid-cols-12gap-2">
                             <FormField
                                 name="prompt"
                                 render={({ field }) => (
                                     <FormItem className="col-span-12 lg:col-span-10">
                                         <FormControl className="m-0 p-0">
                                             <Input
-                                                className="border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
+                                                className="p-3 bg-zinc-400/10 border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent "
                                                 disabled={isLoading}
-                                                placeholder="How do I calculate the radius of a circle?"
+                                                placeholder="안녕하세요"
                                                 {...field}
                                             />
                                         </FormControl>
@@ -92,22 +133,9 @@ const ConversationPage = () => {
                     </Form>
                 </div>
                 <div className='space-y-4 mt-4'>
-                    {isLoading && (
-                        <div className="p-8 rounded-lg w-full flex items-center justify-center bg-muted">
-                            <Loader />
-                        </div>
-                    )}
                     {messages.length === 0 && !isLoading && (<Empty label='No conversation started' />)}
-                    <div className='flex flex-col-reverse gap-y-4'>
-                        {messages.map((message) => (
-                            <div key={message.content} className={cn('p-8 w-full flex items-start gap-x-8 rounded-lg',
-                                message.role === 'user' ? 'bg-white border border-black/10' : 'bg-muted')}>
-                                {message.role === 'user' ? <UserAvatar /> : <BotAvatar />}
-                                <p className='text-sm'>
-                                    {message.content}
-                                </p>
-                            </div>
-                        ))}
+                    <div className='flex flex-col gap-y-4'>
+                        <ChatArea messages={messages} />
                     </div>
                 </div>
             </div>

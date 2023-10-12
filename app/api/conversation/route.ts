@@ -11,9 +11,12 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration);
 
+const systemPrompt =
+  "너는 심리상담 전문가야. 친절하고 명랑하게 대답해줘. 고민을 말하면 공감해줘.";
+
 export async function POST(
   req: Request
-){
+) {
   try {
     const { userId } = auth();
     const body = await req.json();
@@ -34,13 +37,17 @@ export async function POST(
     const freeTrial = await checkApiLimit()
     const isPro = await checkSubscription()
 
-    if(!freeTrial && !isPro){
-      return new NextResponse('Free trial has expired', { status: 403})
+    if (!freeTrial && !isPro) {
+      return new NextResponse('Free trial has expired', { status: 403 })
     }
+
+
 
     const response = await openai.createChatCompletion({
       model: 'gpt-3.5-turbo',
-      messages
+      temperature: 0.7,
+      max_tokens: 512,
+      messages: [{role:'system', content:systemPrompt}, ...messages]
     })
 
     if (!isPro) {
