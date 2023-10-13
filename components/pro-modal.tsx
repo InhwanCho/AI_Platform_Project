@@ -42,8 +42,8 @@ const tools = [
   {
     label: 'Code Generation',
     icon: Code,
-    color: 'text-green-500',
-    bgColor: 'bg-green-500/10',
+    color: 'text-red-500',
+    bgColor: 'bg-red-500/10',
   },
 ]
 
@@ -95,7 +95,7 @@ export const ProModal = () => {
         </DialogHeader>
         <DialogFooter>
           <Button disabled={loading} onClick={onSubscribe} size='lg' variant='premium' className="w-full">
-            Upgrade
+            Upgrade to Pro
             <Zap className='w-4 h-2 fill-white ml-2' />
           </Button>
         </DialogFooter>

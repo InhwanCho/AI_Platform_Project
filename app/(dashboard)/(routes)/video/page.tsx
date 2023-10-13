@@ -68,14 +68,16 @@ const VideoPage = () => {
                                 name="prompt"
                                 render={({ field }) => (
                                     <FormItem className="col-span-12 lg:col-span-10">
+                                        <FormLabel>Input : </FormLabel>
                                         <FormControl className="m-0 p-0">
                                             <Input
                                                 className="p-3 bg-zinc-400/10 border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
                                                 disabled={isLoading}
-                                                placeholder="Clown fish swimming around swimming pool"
+                                                placeholder="골든리트리버가 수영장에서 노는 모습"
                                                 {...field}
                                             />
                                         </FormControl>
+                                        <FormDescription></FormDescription>
                                     </FormItem>
                                 )}
                             />

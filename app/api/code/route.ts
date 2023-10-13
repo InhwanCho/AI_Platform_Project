@@ -10,10 +10,6 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration);
 
-const instructionMessage: ChatCompletionRequestMessage = {
-  role: 'system',
-  content: 'You are a code generator. You must answer only in markdown code snippets. Use code comments for explanations.'
-}
 
 export async function POST(
   req: Request
@@ -21,7 +17,7 @@ export async function POST(
   try {
     const { userId } = auth();
     const body = await req.json();
-    const { messages } = body;
+    const { messages, typeIs = 'markdown' } = body;
 
     if (!userId) {
       return new NextResponse('Unauthorized', { status: 401 })
@@ -42,6 +38,10 @@ export async function POST(
       return new NextResponse('Free trial has expired', { status: 403})
     }
 
+    const instructionMessage: ChatCompletionRequestMessage = {
+      role: 'system',
+      content: `You are a code generator. You must answer only in ${typeIs} code snippets. Use code comments for explanations.`
+    }
 
     const response = await openai.createChatCompletion({
       model: 'gpt-3.5-turbo',

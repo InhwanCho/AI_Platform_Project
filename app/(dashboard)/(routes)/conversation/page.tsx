@@ -32,7 +32,6 @@ const initialMessages: Message[] = [
 const ConversationPage = () => {
     const proModal = useProModal();
     const router = useRouter();
-    // const [messages, setMessages] = useState<ChatCompletionRequestMessage[]>([]);
     const [messages, setMessages] = useState(initialMessages);
 
     const form = useForm<z.infer<typeof formSchema>>({
@@ -42,12 +41,12 @@ const ConversationPage = () => {
         }
     });
     //
-    const chatAreaRef = useRef<HTMLDivElement>(null);
-    const scrollToBottom = () => {
-        if (chatAreaRef.current) {
-            chatAreaRef.current.scrollTop = chatAreaRef.current.scrollHeight;
-        }
-    };
+    // const chatAreaRef = useRef<HTMLDivElement>(null);
+    // const scrollToBottom = () => {
+    //     if (chatAreaRef.current) {
+    //         chatAreaRef.current.scrollTop = chatAreaRef.current.scrollHeight;
+    //     }
+    // };
     //
 
     const isLoading = form.formState.isSubmitting;
@@ -102,7 +101,7 @@ const ConversationPage = () => {
     return (
         <div>
             <Heading
-                title='conversation' description="Our most advanced conversation model ever"
+                title='심리 상담 챗봇' description="Our most advanced conversation model ever"
                 icon={MessageSquare} iconColor='text-violet-500' bgColor="bg-violet-500/10"
             />
             <div className="px-4 lg:px-8">
@@ -115,14 +114,16 @@ const ConversationPage = () => {
                                 name="prompt"
                                 render={({ field }) => (
                                     <FormItem className="col-span-12 lg:col-span-10">
+                                        <FormLabel>Input : </FormLabel>
                                         <FormControl className="m-0 p-0">
                                             <Input
                                                 className="p-3 bg-zinc-400/10 border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent "
                                                 disabled={isLoading}
-                                                placeholder="안녕하세요"
+                                                placeholder="안녕하세요. 내용을 이곳에 입력해주세요"
                                                 {...field}
                                             />
                                         </FormControl>
+                                        <FormDescription></FormDescription>
                                     </FormItem>
                                 )}
                             />

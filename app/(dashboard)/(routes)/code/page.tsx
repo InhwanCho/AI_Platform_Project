@@ -30,7 +30,7 @@ const CodePage = () => {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            prompt: ""
+            prompt: "",
         }
     });
 
@@ -56,7 +56,6 @@ const CodePage = () => {
         }
     }
 
-
     return (
         <div>
             <Heading
@@ -73,14 +72,16 @@ const CodePage = () => {
                                 name="prompt"
                                 render={({ field }) => (
                                     <FormItem className="col-span-12 lg:col-span-10">
+                                        <FormLabel>Input : </FormLabel>
                                         <FormControl className="m-0 p-0">
                                             <Input
                                                 className="p-3 bg-zinc-400/10 border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
                                                 disabled={isLoading}
-                                                placeholder="Simple toggle button using react hooks"
+                                                placeholder="리엑트를 사용하여 토글 버튼을 만드는 방법"
                                                 {...field}
                                             />
                                         </FormControl>
+                                        <FormDescription></FormDescription>
                                     </FormItem>
                                 )}
                             />
@@ -97,7 +98,7 @@ const CodePage = () => {
                         </div>
                     )}
                     {messages.length === 0 && !isLoading && (<Empty label='No conversation started' />)}
-                    <div className='flex flex-col-reverse gap-y-4'>
+                    <div className='flex flex-col gap-y-4'>
                         {messages.map((message) => (
                             <div key={message.content} className={cn('p-8 w-full flex items-start gap-x-8 rounded-lg',
                                 message.role === 'user' ? 'bg-white border border-black/10' : 'bg-muted')}>

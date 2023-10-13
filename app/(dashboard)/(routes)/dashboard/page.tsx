@@ -7,11 +7,18 @@ import {
 } from 'lucide-react';
 const tools = [
   {
-    label: 'Conversation',
+    label: 'Counseling Chatbot',
     icon: MessageSquare,
     color: 'text-violet-500',
     bgColor: 'bg-violet-500/10',
     href: '/conversation',
+  },
+  {
+    label: 'Code Generation',
+    icon: Code,
+    href: '/code',
+    color: 'text-red-500',
+    bgColor: 'bg-red-500/10',
   },
   {
     label: 'Music Generation',
@@ -34,13 +41,6 @@ const tools = [
     color: 'text-orange-500',
     bgColor: 'bg-orange-500/10',
   },
-  {
-    label: 'Code Generation',
-    icon: Code,
-    href: '/code',
-    color: 'text-green-500',
-    bgColor: 'bg-green-500/10',
-  },
 ]
 
 export default function DashboardPage() {
@@ -49,7 +49,7 @@ export default function DashboardPage() {
     <div>
       <div className="mb-8 space-y-4">
         <h2 className="text-2xl md:text-4xl font-bold text-center">
-          Explore the power of AI
+          판타스틱한 AI를 경험해 보세요
         </h2>
         <p className="text-muted-foreground font-light text-sm md:text-lg text-center">
           Chat with the smartest AI - Experience the power of AI

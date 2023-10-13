@@ -6,3 +6,4 @@ export const formSchema = z.object({
     message: "Prompt is required."
   }),
 });
+

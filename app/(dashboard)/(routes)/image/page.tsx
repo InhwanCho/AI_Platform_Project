@@ -49,7 +49,7 @@ const ImagePage = () => {
         } catch (error: any) {
             if (error?.response?.status === 403) {
                 proModal.onOpen();
-            }else {
+            } else {
                 toast.error('Something wrong')
             }
         } finally {
@@ -74,17 +74,20 @@ const ImagePage = () => {
                                 name="prompt"
                                 render={({ field }) => (
                                     <FormItem className="col-span-12 lg:col-span-6">
+                                        <FormLabel>Input : </FormLabel>
                                         <FormControl className="m-0 p-0">
                                             <Input
                                                 className="p-3 bg-zinc-400/10 border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
                                                 disabled={isLoading}
-                                                placeholder="A picture of a horse in Swiss alps"
+                                                placeholder="강아지 한 마리가 집 안에서 날뛰는 모습"
                                                 {...field}
                                             />
                                         </FormControl>
+                                        <FormDescription></FormDescription>
                                     </FormItem>
                                 )}
                             />
+
                             <FormField name='amount' control={form.control} render={({ field }) => (
                                 <FormItem className='col-span-12 lg:col-span-2'>
                                     <Select disabled={isLoading} onValueChange={field.onChange} value={field.value} defaultValue={field.value}>
@@ -102,7 +105,7 @@ const ImagePage = () => {
                                         </SelectContent>
                                     </Select>
                                 </FormItem>)} />
-
+                            
                             <FormField name='resolution' control={form.control} render={({ field }) => (
                                 <FormItem className='col-span-12 lg:col-span-2'>
                                     <Select disabled={isLoading} onValueChange={field.onChange} value={field.value} defaultValue={field.value}>
@@ -137,7 +140,7 @@ const ImagePage = () => {
                         {images.map((src) => (
                             <Card key={src} className='rounded-lg overflow-hidden'>
                                 <div className='relative aspect-square'>
-                                    <Image alt='Image' fill src={src} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"/>
+                                    <Image alt='Image' fill src={src} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
                                 </div>
                                 <CardFooter className='p-2'>
                                     <Button variant='secondary' className='w-full'

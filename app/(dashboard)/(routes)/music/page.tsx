@@ -68,14 +68,16 @@ const MusicPage = () => {
                                 name="prompt"
                                 render={({ field }) => (
                                     <FormItem className="col-span-12 lg:col-span-10">
+                                        <FormLabel>Input : </FormLabel>
                                         <FormControl className="m-0 p-0">
                                             <Input
                                                 className="p-3 bg-zinc-400/10 border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
                                                 disabled={isLoading}
-                                                placeholder="Piano solo"
+                                                placeholder="바이올린 솔로"
                                                 {...field}
                                             />
                                         </FormControl>
+                                        <FormDescription></FormDescription>
                                     </FormItem>
                                 )}
                             />

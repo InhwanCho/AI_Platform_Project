@@ -1,7 +1,7 @@
 'use client';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Montserrat } from 'next/font/google';
+import { Montserrat, Roboto } from 'next/font/google';
 import { cn } from '@/lib/utils';
 import {
     LayoutDashboard, MessageSquare, ImageIcon, VideoIcon, Music, Settings, Code
@@ -9,11 +9,15 @@ import {
 import { usePathname } from 'next/navigation';
 import FreeCounter from './free-counter';
 
-const montserrat = Montserrat({
-    weight: '600',
-    subsets: ['latin'],
-}
-)
+// const montserrat = Montserrat({
+//     weight: '600',
+//     subsets: ['latin'],
+// })
+
+const roboto = Roboto({
+    weight : '500',
+    subsets:['latin'],
+  })
 
 const routes = [
     {
@@ -23,10 +27,22 @@ const routes = [
         color: 'text-sky-500',
     },
     {
-        label: 'Conversation',
+        label: 'Counseling Chatbot',
         icon: MessageSquare,
         href: '/conversation',
         color: 'text-violet-500',
+    },
+    {
+        label: 'Code Generation',
+        icon: Code,
+        href: '/code',
+        color: 'text-red-500',
+    },
+    {
+        label: 'Music Generation',
+        icon: Music,
+        href: '/music',
+        color: 'text-emerald-500',
     },
     {
         label: 'Image Generation',
@@ -39,18 +55,6 @@ const routes = [
         icon: VideoIcon,
         href: '/video',
         color: 'text-orange-500',
-    },
-    {
-        label: 'Music Generation',
-        icon: Music,
-        href: '/music',
-        color: 'text-emerald-500',
-    },
-    {
-        label: 'Code Generation',
-        icon: Code,
-        href: '/code',
-        color: 'text-green-500',
     },
     {
         label: 'Settings',
@@ -73,7 +77,7 @@ const Sidebar = ({apiLimitCount = 0,isPro=false,}:SidebarProps) => {
                     <div className='relative w-8 h-8 mr-4'>
                         <Image fill alt='logo' src='/logo.png' sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
                     </div>
-                    <h1 className={cn('text-2xl font-bold', montserrat.className)}>
+                    <h1 className={cn('text-2xl font-bold', roboto.className)}>
                         Genius
                     </h1>
                 </Link>
