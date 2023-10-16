@@ -74,7 +74,6 @@ const ImagePage = () => {
                                 name="prompt"
                                 render={({ field }) => (
                                     <FormItem className="col-span-12 lg:col-span-6">
-                                        <FormLabel>Input : </FormLabel>
                                         <FormControl className="m-0 p-0">
                                             <Input
                                                 className="p-3 bg-zinc-400/10 border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
@@ -135,7 +134,7 @@ const ImagePage = () => {
                             <Loader />
                         </div>
                     )}
-                    {images.length === 0 && !isLoading && (<Empty label='No Images generated' />)}
+                    {images.length === 0 && !isLoading && (<Empty label='No images generated' />)}
                     <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-8'>
                         {images.map((src) => (
                             <Card key={src} className='rounded-lg overflow-hidden'>

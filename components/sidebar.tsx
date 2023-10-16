@@ -27,7 +27,7 @@ const routes = [
         color: 'text-sky-500',
     },
     {
-        label: 'Counseling Chatbot',
+        label: 'Conversational AI',
         icon: MessageSquare,
         href: '/conversation',
         color: 'text-violet-500',

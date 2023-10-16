@@ -1,60 +1,49 @@
 'use client';
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-
-
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import Image from 'next/image';
 const testimonial = [
   {
-    name: 'Inhwan CHO',
-    avatar: 'A',
-    title: 'Title1',
-    description: "This is the best application I've made",
+    title: 'spring.jpg',
+    src: '/spring.jpg',
   },
   {
-    name: 'Inhwan CHO',
-    avatar: 'A',
-    title: 'Title2',
-    description: "This is the best application I've made",
+    title: 'summer.jpg',
+    src: '/summer.jpg',
   },
   {
-    name: 'Inhwan CHO',
-    avatar: 'A',
-    title: 'Title3',
-    description: "This is the best application I've made",
+    title: 'maple.jpg',
+    src: '/maple.jpg',
   },
   {
-    name: 'Inhwan CHO',
-    avatar: 'A',
-    title: 'Title4',
-    description: "This is the best application I've made",
+    title: 'winter.jpg',
+    src: '/winter.jpg',
+  },
+  {
+    title: 'mountain.jpg',
+    src: '/mountain.jpg',
   },
 ]
 
 const LandingContent = () => {
   return (
-    <div className="px-10 pb-20">
+    <div className="px-10 pb-15">
       <h2 className="text-center text-4xl text-white font-extrabold mb-10">
-        test
+        Create the AI content below
       </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
         {testimonial.map((item) => (
-          <Card key={item.title} className='bg-[#192339] border-none text-white'>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-x-2">
-                <div>
-                  <p className="text-lg">{item.name}</p>
-                  <p className="text-zinc-400 text-sm">{item.title}</p>
-                </div>
-              </CardTitle>
-              <CardContent className="pt-4 px-4">
-                {item.description}
-              </CardContent>
-            </CardHeader>
+          <Card key={item.title} className='rounded-lg overflow-hidden'>
+            <div className="relative aspect-square">
+              <Image alt='image' fill src={item.src} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
+            </div>
           </Card>
         ))}
       </div>
     </div>
   );
 }
+
+
 
 export default LandingContent;
