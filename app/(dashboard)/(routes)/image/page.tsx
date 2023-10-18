@@ -78,7 +78,7 @@ const ImagePage = () => {
                                             <Input
                                                 className="p-3 bg-zinc-400/10 border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
                                                 disabled={isLoading}
-                                                placeholder="강아지 한 마리가 집 안에서 날뛰는 모습"
+                                                placeholder="골든리트리버 한 마리가 집에 있는 사진"
                                                 {...field}
                                             />
                                         </FormControl>

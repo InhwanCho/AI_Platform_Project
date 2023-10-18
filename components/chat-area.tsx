@@ -33,7 +33,6 @@ export default function ChatArea({
             <div className="mb-4 flex justify-end last:mb-0" key={index}>
               <div>
                 <div className="whitespace-pre-wrap rounded-xl border border-gray-200 bg-gray-100 px-4 py-2 last:mb-0">
-                  <UserAvatar />
                   <p className='text-sm'>
                     {message.content}
                   </p>
